@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage":"https://mpgzz.github.io/",
+  "homepage":"https://mpgzz.github.io/M3_A00837313",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run Back\" \"npm run front\"",
