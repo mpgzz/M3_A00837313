@@ -1,67 +1,24 @@
+// front/src/App.js
+
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import PrivateRoute from './login/PrivateRoute';
-import AdminDashboard from './pags/adminPage';
-import UserDashboard from './pags/otherPage';
-import LoginPage from './login/loginPage';
-import MasInforma from './pags/masInfo';
-import ContactVista from './pags/contactos';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Comenta o quita estas líneas temporalmente
+// import PrivateRoute from './login/PrivateRoute'; // Comenta o quita
+// import AdminDashboard from './pags/adminPage'; // Comenta o quita
+// import UserDashboard from './pags/otherPage'; // Comenta o quita
+// import LoginPage from './login/loginPage'; // Comenta o quita
+// import MasInforma from './pags/masInfo'; // Comenta o quita
+// import ContactVista from './pags/contactos'; // Comenta o quita
 
 function App() {
-  const handleLogin = async (email, password) => {
-    try {
-      const response = await fetch('http://localhost:5001/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }), 
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        const { token, userInfo } = data.userData;
-        localStorage.setItem('token', token);
-        localStorage.setItem('userInfo', JSON.stringify(userInfo));
-
-        if (userInfo.rol === 'admin') {
-          window.location.href = '/admin';
-        } else if (userInfo.rol === 'other') { 
-          window.location.href = '/other';
-        } else {
-          alert("Rol desconocido. Asegure que sea admin u other");
-          window.location.href = '/';
-        }
-      } else {
-        
-        const errorMessage = data.message || 'Error desconocido';
-        alert('Error de login: ' + errorMessage);
-        throw new Error(errorMessage); 
-      }
-    } catch (error) {
-      console.error("Error", error);
-     
-      throw new Error("Error al conectar con servidor o credenciales inválidas.");
-    }
-  };
+  // Comenta o quita tu función handleLogin temporalmente
+  // const handleLogin = async (email, password) => { ... };
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LoginPage handleLogin={handleLogin} />} />
-        <Route element={<PrivateRoute role="admin" />}>
-          <Route path="/admin" element={<AdminDashboard />} />
-        </Route>
-        <Route element={<PrivateRoute role="other" />}>
-          <Route path="/other" element={<UserDashboard />} />
-        </Route>
-        <Route element={<PrivateRoute />}> 
-          <Route path="/cont" element={<ContactVista />} />
-          <Route path="/info" element={<MasInforma />} />
-        </Route>
-      </Routes>
-    </Router>
+    // Quita <Router> y <Routes> temporalmente
+    <div>
+      <h1>¡Hola desde mi App React!</h1>
+      <p>Si ves esto, tu app está renderizando.</p>
+    </div>
   );
 }
 
