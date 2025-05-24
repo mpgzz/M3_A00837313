@@ -12,12 +12,12 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 process.on('uncaughtException', (err) => {
-  console.error('Uncaught Exception:', err);
+  console.error('Error:', err);
   process.exit(1);
 });
 
 process.on('unhandledRejection', (err) => {
-  console.error('Unhandled Rejection:', err);
+  console.error('Error:', err);
   process.exit(1);
 });
 
@@ -27,21 +27,21 @@ app.use(express.json());
 
 connectToDatabase()
   .then(() => {
-    console.log("Database connected. Starting server...");
+    console.log("Conexión exitosa");
     
     app.use('/api', loginRoutes);
     app.use('/api/admin', adminRoutes);
     app.use('/api/user', userRoutes);
 
     app.use((req, res) => {
-      res.status(404).json({ message: 'Not Found' });
+      res.status(404).json({ message: 'No encontrado' });
     });
 
     app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
+      console.log(`Servidor corriendo en el puerto: ${PORT}`);
     });
   })
   .catch((err) => {
-    console.error("Failed to connect to database:", err);
+    console.error("Error conectando a la base:", err);
     process.exit(1);
   });
