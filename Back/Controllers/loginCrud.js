@@ -21,7 +21,7 @@ const connectToDatabase = async () => {
     });
 
     connectedPool = await pool.connect();
-    console.log('Database connection successful');
+    console.log('Conexión exitosa');
   }
   return connectedPool;
 };
@@ -37,8 +37,8 @@ const loginUser = async (req, res) => {
 
   try {
    
-    console.log('Received email:', email);
-    console.log('Received password:', password);
+    console.log('Correo:', email);
+    console.log('Contraseña:', password);
 
     const pool = await connectToDatabase();
     const result = await pool.request()
@@ -57,7 +57,7 @@ const loginUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { usuId: user.usuId, correo: user.correo, rol: user.rol },
+      { usuId: user.usuId, correo: user.correo, rol: user.rol, primerNombre: user.primerNombre, primerApellido: user.primerApellido, segundoApellido: user.segundoApellido },
       process.env.JWT_SECRET,
       { expiresIn: '2h' }
     );
@@ -77,7 +77,7 @@ const loginUser = async (req, res) => {
     res.json({ userData });
 
   } catch (err) {
-    console.error('Login error:', err);
+    console.error('Error de login:', err);
     res.status(500).json({ message: 'Error del servidor' });
   }
 };
