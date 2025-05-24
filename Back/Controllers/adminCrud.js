@@ -36,10 +36,10 @@ const createUser = async (req, res) => {
         VALUES (@usuId, @primerNombre, @primerApellido, @segundoApellido, @correo, @contrasena, @rol)
       `);
 
-    res.status(201).json({ message: 'User created' });
+    res.status(201).json({ message: 'Usario creado' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Error creating user' });
+    res.status(500).json({ error: 'Error creando usuario' });
   }
 };
 
@@ -52,13 +52,13 @@ const getUsers = async (req, res) => {
     res.json(result.recordset);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Error fetching users' });
+    res.status(500).json({ error: 'Error obteniendo usuarios' });
   }
 };
 
 
 const updateUser = async (req, res) => {
-  const { usuId } = req.params; // Get the `usuId` from URL
+  const { usuId } = req.params; 
   const { primerNombre, primerApellido, segundoApellido, correo, contrasena, rol } = req.body;
 
   try {
@@ -66,7 +66,6 @@ const updateUser = async (req, res) => {
     let updateQuery = "UPDATE schemaMichelle.tablaUsu SET ";
     const params = {};
 
-    // Dynamically build the update query based on provided fields
     let fieldsUpdated = false;
 
     if (primerNombre) {
@@ -91,7 +90,7 @@ const updateUser = async (req, res) => {
     }
     if (contrasena) {
       updateQuery += "contrasena = @contrasena, ";
-      params.contrasena = hashPassword(contrasena); // Assuming hashPassword function exists
+      params.contrasena = hashPassword(contrasena); 
       fieldsUpdated = true;
     }
     if (rol) {
@@ -100,38 +99,36 @@ const updateUser = async (req, res) => {
       fieldsUpdated = true;
     }
 
-    // If no fields were provided to update, return early with a message
+    
     if (!fieldsUpdated) {
-      return res.status(400).json({ message: 'No fields to update' });
+      return res.status(400).json({ message: 'Error en actualización de filas' });
     }
 
-    // Remove the last comma and space
-    updateQuery = updateQuery.slice(0, -2); // Removing trailing comma
+    updateQuery = updateQuery.slice(0, -2); 
     updateQuery += " WHERE usuId = @usuId";
 
-    // Prepare request with parameters
+
     const request = pool.request()
       .input('usuId', sql.VarChar, usuId);
 
-    // Add dynamic parameters for updated fields
+  
     Object.keys(params).forEach(param => {
       request.input(param, sql.VarChar, params[param]);
     });
 
-    // Execute the query
+
     const result = await request.query(updateQuery);
 
     if (result.rowsAffected[0] === 0) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
-    res.json({ message: 'User updated successfully' });
+    res.json({ message: 'Usiario actualizado' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Error updating user' });
+    res.status(500).json({ error: 'Error actualizando usuario' });
   }
 };
-
 
 
 const deleteUser = async (req, res) => {
@@ -155,13 +152,13 @@ const deleteUser = async (req, res) => {
       `);
 
     if (result.rowsAffected[0] === 0) {
-      return res.status(404).json({ message: 'User not found or incorrect details' });
+      return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
-    res.json({ message: 'User deleted successfully' });
+    res.json({ message: 'Usuario eliminado' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Error deleting user' });
+    res.status(500).json({ error: 'Error eliminando usuario' });
   }
 };
 
