@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": false,
-  "homepage":"https://mpgzz.github.io/M3_A00837313",
+  "homepage":"https://mpgzz.github.io/M3_A00837313/",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
