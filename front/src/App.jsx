@@ -48,20 +48,15 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<LoginPage handleLogin={handleLogin} />} />
-        <Route element={<PrivateRoute role="admin" />}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage handleLogin={handleLogin} />} />
           <Route path="/admin" element={<AdminDashboard />} />
-        </Route>
-        <Route element={<PrivateRoute role="other" />}>
           <Route path="/other" element={<UserDashboard />} />
-        </Route>
-        <Route element={<PrivateRoute />}> 
           <Route path="/cont" element={<ContactVista />} />
           <Route path="/info" element={<MasInforma />} />
-        </Route>
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
   );
 }
 
