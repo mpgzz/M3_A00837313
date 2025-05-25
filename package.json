@@ -1,17 +1,13 @@
 {
   "name": "m3_eval",
   "version": "1.0.0",
-  "description": "",
+  "description": "Frontend-only deployment for GitHub Pages",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm run Back\" \"npm run front\"",
-    "front": "FAST_REFRESH=false npm start --prefix front",
-    "Back": "node server.js",
-    "client-install": "npm install --prefix front",
-    "server-install": "npm install --prefix Back",
-    "predeploy": "cd front && npm run build && cd ..",       
-    "deploy": "gh-pages -d front/build" 
+    "start-front": "npm start --prefix front", 
+    "build-front": "npm run build --prefix front", 
+    "deploy": "npm run build-front && gh-pages -d front/build", 
+    "clean-deploy": "gh-pages -d front/build --dotfiles --no-history" 
   },
   "keywords": [],
   "author": "",
