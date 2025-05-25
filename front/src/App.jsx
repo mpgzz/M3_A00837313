@@ -48,15 +48,14 @@ function App() {
 
   return (
     <Router>
-      <Router>
-        <Routes>
-          <Route path="/" element={<LoginPage handleLogin={handleLogin} />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/other" element={<UserDashboard />} />
-          <Route path="/cont" element={<ContactVista />} />
-          <Route path="/info" element={<MasInforma />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path="/" element={<LoginPage handleLogin={handleLogin} />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/other" element={<UserDashboard />} />
+        <Route path="/cont" element={<ContactVista />} />
+        <Route path="/info" element={<MasInforma />} />
+      </Routes>
+    </Router>
   );
 }
 
