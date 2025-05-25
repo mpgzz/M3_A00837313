@@ -47,7 +47,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename="/M3_A00837313">
       <Routes>
         <Route path="/" element={<LoginPage handleLogin={handleLogin} />} />
         <Route path="/admin" element={<AdminDashboard />} />
