@@ -1,26 +1,10 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 import AdminDashboard from './pags/adminPage';
 import UserDashboard from './pags/otherPage';
 import LoginPage from './login/loginPage';
 import MasInforma from './pags/masInfo';
 import ContactVista from './pags/contactos';
-
-function RedirectHandler() {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const redirectPath = params.get('p');
-
-    if (redirectPath) {
-      navigate(decodeURIComponent(redirectPath), { replace: true });
-    }
-  }, [location.search, navigate]);
-
-  return null;
-}
 
 function App() {
   const handleLogin = async (email, password) => {
@@ -41,7 +25,7 @@ function App() {
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
         const redirect = (path) => {
-          window.location.href = `${window.location.origin}/M3_A00837313${path}`;
+          window.location.href = `<span class="math-inline">\{window\.location\.origin\}/M3\_A00837313</span>{path}`;
         };
 
         if (userInfo.rol === 'admin') {
@@ -65,7 +49,6 @@ function App() {
 
   return (
     <Router basename="/M3_A00837313">
-      <RedirectHandler />
       <Routes>
         <Route path="/" element={<LoginPage handleLogin={handleLogin} />} />
         <Route path="/admin" element={<AdminDashboard />} />
