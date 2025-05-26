@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'; 
 import AdminDashboard from './pags/adminPage';
 import UserDashboard from './pags/otherPage';
 import LoginPage from './login/loginPage';
@@ -7,9 +7,11 @@ import MasInforma from './pags/masInfo';
 import ContactVista from './pags/contactos';
 
 function App() {
+  const navigate = useNavigate(); 
+
   const handleLogin = async (email, password) => {
     try {
-      const response = await fetch('http://localhost:5001/api/login', {
+      const response = await fetch('http://localhost:5001/api/login', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -24,18 +26,14 @@ function App() {
         localStorage.setItem('token', token);
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
-        const redirect = (path) => {
-          // THIS IS THE CORRECTED LINE:
-          window.location.href = `${window.location.origin}/M3_A00837313${path}`;
-        };
-
+        
         if (userInfo.rol === 'admin') {
-          redirect('/admin');
+          navigate('/admin'); 
         } else if (userInfo.rol === 'other') {
-          redirect('/other');
+          navigate('/other'); 
         } else {
           alert("Rol desconocido. Asegure que sea admin u other");
-          redirect('/');
+          navigate('/'); 
         }
       } else {
         const errorMessage = data.message || 'Error desconocido';
@@ -49,7 +47,7 @@ function App() {
   };
 
   return (
-    <Router basename="/M3_A00837313">
+    <Router> 
       <Routes>
         <Route path="/" element={<LoginPage handleLogin={handleLogin} />} />
         <Route path="/admin" element={<AdminDashboard />} />
