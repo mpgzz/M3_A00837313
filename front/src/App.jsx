@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminDashboard from './pags/adminPage';
 import UserDashboard from './pags/otherPage';
 import LoginPage from './login/loginPage';
@@ -25,7 +25,8 @@ function App() {
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
         const redirect = (path) => {
-          window.location.href = `<span class="math-inline">\{window\.location\.origin\}/M3\_A00837313</span>{path}`;
+          // THIS IS THE CORRECTED LINE:
+          window.location.href = `${window.location.origin}/M3_A00837313${path}`;
         };
 
         if (userInfo.rol === 'admin') {
